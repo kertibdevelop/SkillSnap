@@ -1,0 +1,34 @@
+Passwords.txt
+# .NET build output
+**/bin/
+**/obj/
+**/bin/Debug/
+**/bin/Release/
+**/obj/Debug/
+**/obj/Release/
+
+# .NET user-specific files
+*.user
+*.suo
+*.userprefs
+
+# Visual Studio / VS Code specific
+.vscode/
+.vs/
+
+# Entity Framework migrations (ha nem akarod őket commit-olni, de általában igen)
+migrations/  
+
+# NuGet packages (nem kell commit-olni, mert a packages.config / csproj kezeli)
+**/packages/
+**/nuget/
+
+
+SkillSnap.Api/Properties/
+SkillSnap.Api/skillsnap.db
+
+
+SkillSnap.Client/Properties/
+
+
+

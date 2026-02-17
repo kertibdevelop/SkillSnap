@@ -1,6 +1,7 @@
 /SkillSpan.Api/
     Controllers/
         SeedController.cs
+        UserController.cs
     Program.cs
     SkillSnapContex.cs
 /SkillSpan.Client/
