@@ -1,15 +1,18 @@
+@using SkillSnap.Client.Services
 @using SkillSnap.Shared.Models
+
+@inject ProjectService ProjectService
 
 <h4 class="mb-3">My Projects</h4>
 
-@if (Projects == null || !Projects.Any())
+@if (projects == null || !projects.Any())
 {
     <p class="text-muted">No projects available yet.</p>
 }
 else
 {
     <div class="row">
-        @foreach (var project in Projects)
+        @foreach (var project in projects)
         {
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card h-100">
@@ -28,28 +31,10 @@ else
 }
 
 @code {
-    private List<Project> Projects { get; set; } = new()
+
+    private List<Project> projects;
+    protected override async Task OnInitializedAsync()
     {
-        new Project 
-        { 
-            Id = 1, 
-            Title = "E-commerce Platform", 
-            Description = "Full-stack online shop with payment integration", 
-            ImageUrl = "https://via.placeholder.com/400x200?text=Shop" 
-        },
-        new Project 
-        { 
-            Id = 2, 
-            Title = "Task Manager App", 
-            Description = "Blazor WASM + API based productivity tool", 
-            ImageUrl = "https://via.placeholder.com/400x200?text=Tasks" 
-        },
-        new Project 
-        { 
-            Id = 3, 
-            Title = "Portfolio Website", 
-            Description = "Personal site built with modern web tech", 
-            ImageUrl = "https://via.placeholder.com/400x200?text=Portfolio" 
-        }
-    };
+        projects = await ProjectService.GetProjectsAsync();
+    }
 }

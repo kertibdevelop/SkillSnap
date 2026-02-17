@@ -21,7 +21,7 @@ public class ProjectsController : ControllerBase
     public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
     {
         return await _context.Projects
-            .Include(p => p.PortfolioUser)  // opcionális: ha kell a user infó is
+            //.Include(p => p.PortfolioUser)  // opcionális: ha kell a user infó is
             .ToListAsync();
     }
 
@@ -46,7 +46,7 @@ public class ProjectsController : ControllerBase
     public async Task<ActionResult<Project>> GetProject(int id)
     {
         var project = await _context.Projects
-            .Include(p => p.PortfolioUser)
+            //.Include(p => p.PortfolioUser)
             .FirstOrDefaultAsync(p => p.Id == id);
 
         if (project == null)

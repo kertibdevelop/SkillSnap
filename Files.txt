@@ -11,6 +11,9 @@
         ProfileCard.razor
         ProjectList.razor
         SkillTags.razor
+    Services/
+        ProjectService.cs
+        SkillService.cs
     Layout/
         MainLayout.razor
         MainLayout.razor.css
@@ -19,6 +22,9 @@
     Pages/
         Home.razor
         NotFound.razor
+        Projects.razor
+        Skills.razor
+    Program.cs
 /SkillSnap.Shared/
     Models/
         PortfoilioUser.cs

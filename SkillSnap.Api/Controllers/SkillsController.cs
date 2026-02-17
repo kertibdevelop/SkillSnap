@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 using SkillSnap.Api;
 using SkillSnap.Shared.Models;
 
@@ -45,7 +46,7 @@ public class SkillsController : ControllerBase
     public async Task<ActionResult<Skill>> GetSkill(int id)
     {
         var skill = await _context.Skills
-            .Include(s => s.PortfolioUser)
+            //.Include(s => s.PortfolioUser)
             .FirstOrDefaultAsync(s => s.Id == id);
 
         if (skill == null)

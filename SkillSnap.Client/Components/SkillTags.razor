@@ -1,15 +1,18 @@
 @using SkillSnap.Shared.Models
+@using SkillSnap.Client.Services
+
+@inject SkillService SkillService
 
 <h4 class="mb-3">Skills</h4>
 
-@if (Skills == null || !Skills.Any())
+@if (skills == null || !skills.Any())
 {
     <p class="text-muted">No skills listed yet.</p>
 }
 else
 {
     <div class="d-flex flex-wrap gap-2">
-        @foreach (var skill in Skills)
+        @foreach (var skill in skills)
         {
             <span class="badge bg-primary rounded-pill px-3 py-2 fs-6">
                 @skill.Name 
@@ -23,13 +26,9 @@ else
 }
 
 @code {
-    private List<Skill> Skills { get; set; } = new()
+    private List<Skill> skills;
+    protected override async Task OnInitializedAsync()
     {
-        new Skill { Id = 1, Name = "Blazor", Level = "Expert" },
-        new Skill { Id = 2, Name = ".NET", Level = "Advanced" },
-        new Skill { Id = 3, Name = "C#", Level = "Expert" },
-        new Skill { Id = 4, Name = "Entity Framework Core", Level = "Advanced" },
-        new Skill { Id = 5, Name = "REST APIs", Level = "Intermediate" },
-        new Skill { Id = 6, Name = "Bootstrap", Level = "Advanced" }
-    };
+        skills = await SkillService.GetSkillsAsync();
+    }
 }
