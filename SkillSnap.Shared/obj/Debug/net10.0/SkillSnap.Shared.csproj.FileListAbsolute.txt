@@ -1,0 +1,12 @@
+C:\Balint\Course\Microsoft Full-Stack Developer\Programs\VS Code Projects\SkillSnap\SkillSnap.Shared\bin\Debug\net10.0\SkillSnap.Shared.deps.json
+C:\Balint\Course\Microsoft Full-Stack Developer\Programs\VS Code Projects\SkillSnap\SkillSnap.Shared\bin\Debug\net10.0\SkillSnap.Shared.dll
+C:\Balint\Course\Microsoft Full-Stack Developer\Programs\VS Code Projects\SkillSnap\SkillSnap.Shared\bin\Debug\net10.0\SkillSnap.Shared.pdb
+C:\Balint\Course\Microsoft Full-Stack Developer\Programs\VS Code Projects\SkillSnap\SkillSnap.Shared\obj\Debug\net10.0\SkillSnap.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Balint\Course\Microsoft Full-Stack Developer\Programs\VS Code Projects\SkillSnap\SkillSnap.Shared\obj\Debug\net10.0\SkillSnap.Shared.AssemblyInfoInputs.cache
+C:\Balint\Course\Microsoft Full-Stack Developer\Programs\VS Code Projects\SkillSnap\SkillSnap.Shared\obj\Debug\net10.0\SkillSnap.Shared.AssemblyInfo.cs
+C:\Balint\Course\Microsoft Full-Stack Developer\Programs\VS Code Projects\SkillSnap\SkillSnap.Shared\obj\Debug\net10.0\SkillSnap.Shared.csproj.CoreCompileInputs.cache
+C:\Balint\Course\Microsoft Full-Stack Developer\Programs\VS Code Projects\SkillSnap\SkillSnap.Shared\obj\Debug\net10.0\SkillSnap.Shared.sourcelink.json
+C:\Balint\Course\Microsoft Full-Stack Developer\Programs\VS Code Projects\SkillSnap\SkillSnap.Shared\obj\Debug\net10.0\SkillSnap.Shared.dll
+C:\Balint\Course\Microsoft Full-Stack Developer\Programs\VS Code Projects\SkillSnap\SkillSnap.Shared\obj\Debug\net10.0\refint\SkillSnap.Shared.dll
+C:\Balint\Course\Microsoft Full-Stack Developer\Programs\VS Code Projects\SkillSnap\SkillSnap.Shared\obj\Debug\net10.0\SkillSnap.Shared.pdb
+C:\Balint\Course\Microsoft Full-Stack Developer\Programs\VS Code Projects\SkillSnap\SkillSnap.Shared\obj\Debug\net10.0\ref\SkillSnap.Shared.dll

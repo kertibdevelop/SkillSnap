@@ -1,0 +1,11 @@
+/SkillSpan.Api/
+    Controllers/
+        SeedController.cs
+    Program.cs
+    SkillSnapContex.cs
+/SkillSpan.Client/
+/SkillSpan.Shared/
+    Models/
+        PortfoilioUser.cs
+        Project.cs
+        Skill.cs
