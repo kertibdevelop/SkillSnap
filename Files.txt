@@ -1,11 +1,25 @@
-/SkillSpan.Api/
+/SkillSnap.Api/
     Controllers/
         SeedController.cs
         UserController.cs
+        ProjectsController.cs
+        SkillsController.cs
     Program.cs
-    SkillSnapContex.cs
-/SkillSpan.Client/
-/SkillSpan.Shared/
+    SkillSnapContext.cs
+/SkillSnap.Client/
+    Components/
+        ProfileCard.razor
+        ProjectList.razor
+        SkillTags.razor
+    Layout/
+        MainLayout.razor
+        MainLayout.razor.css
+        NavMenu.razor
+        NavMenu.razor.css
+    Pages/
+        Home.razor
+        NotFound.razor
+/SkillSnap.Shared/
     Models/
         PortfoilioUser.cs
         Project.cs

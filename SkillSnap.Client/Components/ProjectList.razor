@@ -1,0 +1,55 @@
+@using SkillSnap.Shared.Models
+
+<h4 class="mb-3">My Projects</h4>
+
+@if (Projects == null || !Projects.Any())
+{
+    <p class="text-muted">No projects available yet.</p>
+}
+else
+{
+    <div class="row">
+        @foreach (var project in Projects)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                    <img src="@(project.ImageUrl ?? "https://via.placeholder.com/400x200?text=No+Image")" 
+                         class="card-img-top" 
+                         alt="@project.Title" 
+                         style="height: 180px; object-fit: cover;" />
+                    <div class="card-body">
+                        <h5 class="card-title">@project.Title</h5>
+                        <p class="card-text">@(project.Description ?? "No description available")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<Project> Projects { get; set; } = new()
+    {
+        new Project 
+        { 
+            Id = 1, 
+            Title = "E-commerce Platform", 
+            Description = "Full-stack online shop with payment integration", 
+            ImageUrl = "https://via.placeholder.com/400x200?text=Shop" 
+        },
+        new Project 
+        { 
+            Id = 2, 
+            Title = "Task Manager App", 
+            Description = "Blazor WASM + API based productivity tool", 
+            ImageUrl = "https://via.placeholder.com/400x200?text=Tasks" 
+        },
+        new Project 
+        { 
+            Id = 3, 
+            Title = "Portfolio Website", 
+            Description = "Personal site built with modern web tech", 
+            ImageUrl = "https://via.placeholder.com/400x200?text=Portfolio" 
+        }
+    };
+}

@@ -32,8 +32,16 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Balint/Course/Microsoft Full-Stack Developer/Programs/VS Code Projects/SkillSnap/SkillSnap.Client/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+[C:/Balint/Course/Microsoft Full-Stack Developer/Programs/VS Code Projects/SkillSnap/SkillSnap.Client/Components/ProfileCard.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQcm9maWxlQ2FyZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Balint/Course/Microsoft Full-Stack Developer/Programs/VS Code Projects/SkillSnap/SkillSnap.Client/Components/ProjectList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQcm9qZWN0TGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Balint/Course/Microsoft Full-Stack Developer/Programs/VS Code Projects/SkillSnap/SkillSnap.Client/Components/SkillTags.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTa2lsbFRhZ3MucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Balint/Course/Microsoft Full-Stack Developer/Programs/VS Code Projects/SkillSnap/SkillSnap.Client/Pages/Home.razor]
@@ -42,10 +50,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Balint/Course/Microsoft Full-Stack Developer/Programs/VS Code Projects/SkillSnap/SkillSnap.Client/Pages/NotFound.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90Rm91bmQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Balint/Course/Microsoft Full-Stack Developer/Programs/VS Code Projects/SkillSnap/SkillSnap.Client/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2VhdGhlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Balint/Course/Microsoft Full-Stack Developer/Programs/VS Code Projects/SkillSnap/SkillSnap.Client/_Imports.razor]

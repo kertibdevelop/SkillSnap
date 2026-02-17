@@ -1,0 +1,24 @@
+@using SkillSnap.Shared.Models
+
+<div class="profile-card card mb-4">
+    <img src="@(User?.ProfileImageUrl ?? "https://via.placeholder.com/150")" 
+         alt="Profile Picture" 
+         class="card-img-top rounded-circle mx-auto d-block mt-3" 
+         style="width: 150px; height: 150px; object-fit: cover;" />
+    <div class="card-body text-center">
+        <h3 class="card-title">@(User?.Name ?? "John Doe")</h3>
+        <p class="card-text text-muted">
+            @(User?.Bio ?? "Passionate full-stack developer with 5+ years of experience in .NET, Blazor, and cloud technologies.")
+        </p>
+    </div>
+</div>
+
+@code {
+    private PortfolioUser User { get; set; } = new()
+    {
+        Id = 1,
+        Name = "John Doe",
+        Bio = "Passionate full-stack developer with 5+ years of experience in .NET, Blazor, and cloud technologies. Love building beautiful UIs and scalable backends.",
+        ProfileImageUrl = "https://via.placeholder.com/150"
+    };
+}
