@@ -1,4 +1,6 @@
 /SkillSnap.Api/
+    Data/
+        DbInitializer.cs
     Controllers/
         SeedController.cs
         UserController.cs

@@ -14,9 +14,9 @@ public class Skill
 
     public string Level { get; set;}
 
-    [ForeignKey("PortfolioUser")]
-    public int PortfolioUserId { get; set; }
+    [ForeignKey("ApplicationUserId")]
+    public string ApplicationUserId { get; set; }
 
-    [JsonIgnore]
-    public PortfolioUser? PortfolioUser { get; set; }
+    //[JsonIgnore]
+    //public PortfolioUser? PortfolioUser { get; set; }
 }

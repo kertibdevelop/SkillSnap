@@ -3,23 +3,17 @@ using System.Text.Json.Serialization;
 
 namespace SkillSnap.Shared.Models;
 
-public class PortfolioUser
+public class PortfolioUser : IPortfolioUser
 {
 
     [Key]
-    public int Id { get; set; }
-
-    [Required]
-    public string Name { get; set; }
-
-    public string Bio { get; set; } = "";
-
-    public string ProfileImageUrl { get; set; }
+    public string Id { get; set; } = string.Empty;
     
-    [JsonIgnore]
-    public List<Project>? Projects { get; set; }
-
-    [JsonIgnore]
-    public List<Skill>? Skills { get; set; }
-
+    public string FirstName { get; set; } = string.Empty;
+    public string MiddleName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string Bio { get; set; } = string.Empty;
+    public string ProfileImageUrl { get; set; } = string.Empty;
+    public List<Project> Projects { get; set; } = new List<Project>();
+    public List<Skill> Skills { get; set; } = new List<Skill>();
 }

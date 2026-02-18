@@ -5,7 +5,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
+using SkillSnap.Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -120,6 +120,8 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "SkillSnap API v1");
         options.RoutePrefix = "swagger"; 
     });
+
+    await DbInitializer.SeedAsync(app.Services);
 }
 
 app.UseCors("AllowClient");

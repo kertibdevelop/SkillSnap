@@ -1,20 +1,21 @@
 
 
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
+using SkillSnap.Shared.Models;
 
-public class ApplicationUser : IdentityUser
+public class ApplicationUser : IdentityUser, IPortfolioUser
 {
-    [Required]
-    public string Email { get; set;}
+    
+    //IPortfolioUser implementation
 
-    [Required]
-    public string Password { get; set;}
-    public string Role { get; set;} = "";
-
-    public string Title { get; set;} = "";
-    public string FirstName { get; set;} = "";
-    public string MiddleName { get; set;} = "";
-    public string LastName { get; set;} = "";
+    public string FirstName { get; set; } = string.Empty;
+    public string MiddleName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string Bio { get; set; } = string.Empty;
+    public string ProfileImageUrl { get; set; } = string.Empty;
+    public List<Project> Projects { get; set; } = new List<Project>();
+    public List<Skill> Skills { get; set; } = new List<Skill>();
 
 }

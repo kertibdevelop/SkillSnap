@@ -24,12 +24,15 @@ namespace SkillSnap.Api.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
@@ -62,10 +65,6 @@ namespace SkillSnap.Api.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
 
@@ -75,15 +74,11 @@ namespace SkillSnap.Api.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Role")
+                    b.Property<string>("ProfileImageUrl")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -233,34 +228,15 @@ namespace SkillSnap.Api.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("SkillSnap.Shared.Models.PortfolioUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Bio")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ProfileImageUrl")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PortfolioUsers");
-                });
-
             modelBuilder.Entity("SkillSnap.Shared.Models.Project", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -270,16 +246,13 @@ namespace SkillSnap.Api.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("PortfolioUserId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PortfolioUserId");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Projects");
                 });
@@ -290,6 +263,10 @@ namespace SkillSnap.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Level")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -298,12 +275,9 @@ namespace SkillSnap.Api.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("PortfolioUserId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("PortfolioUserId");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Skills");
                 });
@@ -361,27 +335,23 @@ namespace SkillSnap.Api.Migrations
 
             modelBuilder.Entity("SkillSnap.Shared.Models.Project", b =>
                 {
-                    b.HasOne("SkillSnap.Shared.Models.PortfolioUser", "PortfolioUser")
+                    b.HasOne("ApplicationUser", null)
                         .WithMany("Projects")
-                        .HasForeignKey("PortfolioUserId")
+                        .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("PortfolioUser");
                 });
 
             modelBuilder.Entity("SkillSnap.Shared.Models.Skill", b =>
                 {
-                    b.HasOne("SkillSnap.Shared.Models.PortfolioUser", "PortfolioUser")
+                    b.HasOne("ApplicationUser", null)
                         .WithMany("Skills")
-                        .HasForeignKey("PortfolioUserId")
+                        .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("PortfolioUser");
                 });
 
-            modelBuilder.Entity("SkillSnap.Shared.Models.PortfolioUser", b =>
+            modelBuilder.Entity("ApplicationUser", b =>
                 {
                     b.Navigation("Projects");
 

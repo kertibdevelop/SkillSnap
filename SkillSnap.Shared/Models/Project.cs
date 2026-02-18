@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
+
 namespace SkillSnap.Shared.Models;
 
 public class Project
@@ -16,10 +17,10 @@ public class Project
     
     public string ImageUrl { get; set; }
     
-    [ForeignKey("PortfolioUser")]
-    public int PortfolioUserId { get; set; }
+    [ForeignKey("ApplicationUserId")]
+    public string ApplicationUserId { get; set; }
 
-    [JsonIgnore]
-    public PortfolioUser? PortfolioUser { get; set; }
+    //[JsonIgnore]
+    //public PortfolioUser? PortfolioUser { get; set; }
 
 }

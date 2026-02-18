@@ -13,15 +13,18 @@ namespace SkillSnap.Api.Controllers;
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
+    private readonly SkillSnapContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly IConfiguration _configuration;
 
     public AuthController(
+        SkillSnapContext context,
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
         IConfiguration configuration)
     {
+        _context = context;
         _userManager = userManager;
         _signInManager = signInManager;
         _configuration = configuration;
@@ -31,35 +34,27 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         var user = new ApplicationUser
         {
             UserName = registerDto.Email,
             Email = registerDto.Email,
-            Title = registerDto.Title,
             FirstName = registerDto.FirstName,
             MiddleName = registerDto.MiddleName,
-            LastName = registerDto.LastName
+            LastName = registerDto.LastName,
+            Bio = "",
+            ProfileImageUrl = "https://via.placeholder.com/150"
+
         };
 
         var result = await _userManager.CreateAsync(user, registerDto.Password);
 
-        if (!result.Succeeded)
+        if (result.Succeeded)
         {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-            return BadRequest(ModelState);
+            await _userManager.AddToRoleAsync(user, "User");
+            return Ok(new { Message = "Registration successful" });
         }
 
-        await _userManager.AddToRoleAsync(user, "User");
-
-        return Ok(new { Message = "User registered successfully" });
+        return BadRequest(result.Errors);
     }
 
     // POST: api/auth/login
@@ -92,7 +87,6 @@ public class AuthController : ControllerBase
 
     private async Task<string> GenerateJwtToken(ApplicationUser user)
 {
-        // Kulcs betöltése ugyanúgy, mint a Program.cs-ben (konzisztencia miatt)
         var jwtKey = _configuration["Jwt:Key"];
         if (string.IsNullOrEmpty(jwtKey))
         {
@@ -106,7 +100,6 @@ public class AuthController : ControllerBase
 
         var keyBytes = Encoding.UTF8.GetBytes(jwtKey);
 
-        // User role-ok lekérdezése
         var roles = await _userManager.GetRolesAsync(user);
 
         var claims = new List<Claim>
@@ -114,11 +107,8 @@ public class AuthController : ControllerBase
             new Claim(JwtRegisteredClaimNames.Sub, user.Id),
             new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            // Opcionális: teljes név, ha van
-            // new Claim("fullName", user.FullName ?? string.Empty)
         };
 
-        // Minden role-t külön claim-ként hozzáadunk (ez a leggyakoribb és legbiztonságosabb mód)
         foreach (var role in roles)
         {
             claims.Add(new Claim(ClaimTypes.Role, role));

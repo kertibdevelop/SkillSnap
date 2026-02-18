@@ -1,5 +1,7 @@
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SkillSnap.Shared.Models;
 
 [ApiController]
@@ -7,30 +9,56 @@ using SkillSnap.Shared.Models;
 public class UserController : ControllerBase
 {
     private readonly SkillSnapContext _context;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public UserController(SkillSnapContext context)
+    public UserController(SkillSnapContext context, UserManager<ApplicationUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     // GET: api/user
     [HttpGet]
-    public ActionResult<IEnumerable<PortfolioUser>> GetUsers()
+    public async Task<ActionResult<IEnumerable<PortfolioUser>>> GetUsers()
     {
-        return _context.PortfolioUsers.ToList();
+        var users = await _userManager.Users
+            .Include(u => u.Projects)
+            .Include(u => u.Skills)
+            .Select(u => new PortfolioUser
+            {
+                Id = u.Id,
+                FirstName = u.FirstName,
+                MiddleName = u.MiddleName,
+                LastName = u.LastName,
+                Bio = u.Bio,
+                ProfileImageUrl = u.ProfileImageUrl,
+                Projects = u.Projects,
+                Skills = u.Skills
+            })
+            .ToListAsync();
+
+        return Ok(users);
     }
 
     // GET: api/user/5
     [HttpGet("{id}")]
-    public ActionResult<PortfolioUser> GetUser(int id)
+    public async Task<ActionResult<PortfolioUser>> GetUser(string id)
     {
-        var user = _context.PortfolioUsers.Find(id);
+        var user = await _userManager.FindByIdAsync(id);
+        if (user == null) return NotFound();
 
-        if (user == null)
+        var portfolio = new PortfolioUser
         {
-            return NotFound();
-        }
+            Id = user.Id,
+            FirstName = user.FirstName,
+            MiddleName = user.MiddleName,
+            LastName = user.LastName,
+            Bio = user.Bio,
+            ProfileImageUrl = user.ProfileImageUrl,
+            Projects = user.Projects,
+            Skills = user.Skills
+        };
 
-        return user;
+        return Ok(portfolio);
     }
 }

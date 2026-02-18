@@ -22,7 +22,7 @@ public class SkillsController : ControllerBase
     public async Task<ActionResult<IEnumerable<Skill>>> GetSkills()
     {
         return await _context.Skills
-            .Include(s => s.PortfolioUser)  // opcionális
+            //.Include(s => s.PortfolioUser)  // opcionális
             .ToListAsync();
     }
 
