@@ -4,6 +4,7 @@
         UserController.cs
         ProjectsController.cs
         SkillsController.cs
+        AuthController.cs
     Program.cs
     SkillSnapContext.cs
     ApplicationUser.cs
@@ -31,3 +32,5 @@
         PortfoilioUser.cs
         Project.cs
         Skill.cs
+        RegisterDto.cs
+        LoginDto.cs
