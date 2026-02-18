@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace SkillSnap.Shared.Models;
 
@@ -15,8 +16,10 @@ public class PortfolioUser
 
     public string ProfileImageUrl { get; set; }
     
-    public List<Project> Projects { get; set; }
+    [JsonIgnore]
+    public List<Project>? Projects { get; set; }
 
-    public List<Skill> Skills { get; set; }
+    [JsonIgnore]
+    public List<Skill>? Skills { get; set; }
 
 }

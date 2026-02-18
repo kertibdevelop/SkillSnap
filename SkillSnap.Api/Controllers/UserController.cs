@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SkillSnap.Shared.Models;
 
+[ApiController]
+[Route("api/[controller]")]
 public class UserController : ControllerBase
 {
     private readonly SkillSnapContext _context;

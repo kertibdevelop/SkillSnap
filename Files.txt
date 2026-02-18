@@ -6,6 +6,7 @@
         SkillsController.cs
     Program.cs
     SkillSnapContext.cs
+    ApplicationUser.cs
 /SkillSnap.Client/
     Components/
         ProfileCard.razor
