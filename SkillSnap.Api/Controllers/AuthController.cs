@@ -38,11 +38,11 @@ public class AuthController : ControllerBase
         {
             UserName = registerDto.Email,
             Email = registerDto.Email,
-            FirstName = registerDto.FirstName,
-            MiddleName = registerDto.MiddleName,
-            LastName = registerDto.LastName,
-            Bio = "",
-            ProfileImageUrl = "https://via.placeholder.com/150"
+            FirstName = registerDto.FirstName??string.Empty,
+            MiddleName = registerDto.MiddleName??string.Empty,
+            LastName = registerDto.LastName??string.Empty,
+            Bio = registerDto.Bio??string.Empty,
+            ProfileImageUrl = registerDto.ProfileImageUrl??string.Empty
 
         };
 
@@ -86,7 +86,7 @@ public class AuthController : ControllerBase
     }
 
     private async Task<string> GenerateJwtToken(ApplicationUser user)
-{
+    {
         var jwtKey = _configuration["Jwt:Key"];
         if (string.IsNullOrEmpty(jwtKey))
         {

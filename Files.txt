@@ -2,7 +2,6 @@
     Data/
         DbInitializer.cs
     Controllers/
-        SeedController.cs
         UserController.cs
         ProjectsController.cs
         SkillsController.cs
@@ -18,6 +17,7 @@
     Services/
         ProjectService.cs
         SkillService.cs
+        AuthService.cs
     Layout/
         MainLayout.razor
         MainLayout.razor.css
@@ -28,9 +28,12 @@
         NotFound.razor
         Projects.razor
         Skills.razor
+        Login.razor
+        Register.razor
     Program.cs
 /SkillSnap.Shared/
     Models/
+        IPortfolioUser.cs
         PortfoilioUser.cs
         Project.cs
         Skill.cs
