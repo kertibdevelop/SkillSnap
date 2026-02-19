@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace SkillSnap.Shared.Models;
 
-public class RegisterDto :IPortfolioUser
+public class RegisterDto 
 {
     [Required]
     [EmailAddress]
@@ -20,9 +20,4 @@ public class RegisterDto :IPortfolioUser
     public string Bio { get; set; } = string.Empty;
     public string ProfileImageUrl { get; set; } = string.Empty;
 
-    [JsonIgnore]
-    public List<Project> Projects { get; set; } = new List<Project>();
-    
-    [JsonIgnore]
-    public List<Skill> Skills { get; set; } = new List<Skill>();
 }
