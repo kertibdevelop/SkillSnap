@@ -7,7 +7,6 @@ using SkillSnap.Shared.Models;
 public class SkillSnapContext : IdentityDbContext<ApplicationUser>
 {
     public SkillSnapContext(DbContextOptions<SkillSnapContext> options) : base(options) { }
-    //public DbSet<PortfolioUser> PortfolioUsers { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<Skill> Skills { get; set; }
 
@@ -18,7 +17,6 @@ public class SkillSnapContext : IdentityDbContext<ApplicationUser>
 
         // Project → ApplicationUser (1:N)
         builder.Entity<Project>()
-            //.HasOne(p => p.PortfolioUser)
             .HasOne<ApplicationUser>()
             .WithMany(u => u.Projects)
             .HasForeignKey(p => p.ApplicationUserId)
@@ -26,7 +24,6 @@ public class SkillSnapContext : IdentityDbContext<ApplicationUser>
 
         // Skill → ApplicationUser (1:N)
         builder.Entity<Skill>()
-            //.HasOne(s => s.PortfolioUser)
             .HasOne<ApplicationUser>()
             .WithMany(u => u.Skills)
             .HasForeignKey(s => s.ApplicationUserId)

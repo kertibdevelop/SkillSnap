@@ -10,17 +10,23 @@ using SkillSnap.Api.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-//builder.Services.AddOpenApi();
-builder.Services.AddControllers();
-builder.Services.AddDbContext<SkillSnapContext>(options => options.UseSqlite("Data Source=skillsnap.db"));
+
+builder.Services.AddMemoryCache();
 
 // AUTHENTICATION >
+
+    builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>{
+        options.Password.RequireDigit = true;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireLowercase = true;
+    }).AddEntityFrameworkStores<SkillSnapContext>()
+        .AddDefaultTokenProviders();
 
     var jwtKey = builder.Configuration["Jwt:Key"];
     if (string.IsNullOrEmpty(jwtKey))
     {
-        // Ha nincs appsettings-ben, próbálja meg a környezeti változóból
         jwtKey = Environment.GetEnvironmentVariable("SKILLSNAP_JWT_SECRET");
     }
 
@@ -28,19 +34,49 @@ builder.Services.AddDbContext<SkillSnapContext>(options => options.UseSqlite("Da
     {
         throw new InvalidOperationException("JWT Key is missing. Set SKILLSNAP_JWT_SECRET environment variable or Jwt:Key in configuration.");
     }
+
     builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
     })
     .AddJwtBearer(options =>
     {
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                Console.WriteLine("Authentication failed: " + context.Exception.Message);
+                return Task.CompletedTask;
+            },
+            OnTokenValidated = context =>
+            {
+                Console.WriteLine("Token validated successfully");
+                return Task.CompletedTask;
+            }
+            ,OnChallenge = context =>
+            {
+                Console.WriteLine("OnChallenge triggered: " + context.ErrorDescription);
+                return Task.CompletedTask;
+            },
+            OnForbidden = context =>
+            {
+                Console.WriteLine("Forbidden: " + context.Response.StatusCode);
+                return Task.CompletedTask;
+            },
+            OnMessageReceived = context =>
+            {
+                Console.WriteLine("Message received: " + context.Request.Headers["Authorization"]);
+                return Task.CompletedTask;
+            }
+        };
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
+            ValidateLifetime = true, 
+            ValidateIssuerSigningKey = true, 
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
@@ -49,15 +85,22 @@ builder.Services.AddDbContext<SkillSnapContext>(options => options.UseSqlite("Da
     
 // < AUTHENTICATION
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<SkillSnapContext>();
 builder.Services.AddCors(options =>
 {
+    options.AddPolicy("AllowAllLocalhost", policy =>
+    {
+        policy.SetIsOriginAllowed(origin=> new Uri(origin).Host == "localhost")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+            
+    });
     options.AddPolicy("AllowClient", policy =>
     {
-        policy.WithOrigins("https://localhost:5001")
+        policy.WithOrigins("http://localhost:5130")
             .AllowAnyMethod()
             .AllowAnyHeader();
+            
     });
 });
 
@@ -78,7 +121,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    // JWT Bearer definiálása
+
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -91,7 +134,6 @@ builder.Services.AddSwaggerGen(options =>
         BearerFormat = "JWT"
     });
 
-    // Security requirement (globális – minden endpoint-hez kérheti a tokent)
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -107,6 +149,9 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+
+builder.Services.AddDbContext<SkillSnapContext>(options => options.UseSqlite("Data Source=skillsnap.db"));
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -124,9 +169,10 @@ if (app.Environment.IsDevelopment())
     await DbInitializer.SeedAsync(app.Services);
 }
 
-app.UseCors("AllowClient");
+
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseCors("AllowAllLocalhost");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

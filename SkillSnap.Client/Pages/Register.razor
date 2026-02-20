@@ -1,0 +1,150 @@
+@page "/register"
+
+@using SkillSnap.Client.Services
+@using SkillSnap.Shared.Models
+
+@inject AuthService AuthService
+@inject NavigationManager Navigation
+
+<PageTitle>Register</PageTitle>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Register</h3>
+                </div>
+                <div class="card-body">
+                    <EditForm Model="@registerModel" OnValidSubmit="HandleRegister">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="text-danger" />
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <InputText id="email" @bind-Value="registerModel.Email" class="form-control" />
+                            <ValidationMessage For="@(() => registerModel.Email)" class="text-danger" />
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <InputText type="password" id="password" @bind-Value="registerModel.Password" class="form-control" />
+                            <ValidationMessage For="@(() => registerModel.Password)" class="text-danger" />
+                        </div>
+
+                        <!-- Title (dropdown) -->
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <InputSelect id="title" @bind-Value="registerModel.Title" class="form-select">
+                                <option value="">-- Select title --</option>
+                                <option value="Mr">Mr</option>
+                                <option value="Ms">Ms</option>
+                                <option value="Mrs">Mrs</option>
+                                <option value="Miss">Miss</option>
+                                <option value="Dr">Dr</option>
+                                <option value="Prof">Prof</option>
+                                <option value="Other">Other</option>
+                            </InputSelect>
+                            <ValidationMessage For="@(() => registerModel.Title)" class="text-danger" />
+                        </div>
+
+                        <!-- First Name -->
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <InputText id="firstName" @bind-Value="registerModel.FirstName" class="form-control" />
+                        </div>
+
+                        <!-- Middle Name (optional) -->
+                        <div class="mb-3">
+                            <label for="middleName" class="form-label">Middle Name</label>
+                            <InputText id="middleName" @bind-Value="registerModel.MiddleName" class="form-control" />
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <InputText id="lastName" @bind-Value="registerModel.LastName" class="form-control" />
+                        </div>
+
+                        <!-- Bio -->
+                        <div class="mb-3">
+                            <label for="bio" class="form-label">Bio (optional)</label>
+                            <InputTextArea id="bio" @bind-Value="registerModel.Bio" class="form-control" rows="3" />
+                        </div>
+
+                        <!-- Profile Image URL -->
+                        <div class="mb-3">
+                            <label for="profileImageUrl" class="form-label">Profile Image URL (optional)</label>
+                            <InputText id="profileImageUrl" @bind-Value="registerModel.ProfileImageUrl" class="form-control" placeholder="https://..." />
+                        </div>
+
+                        <!-- Submit button with loading state -->
+                        <button type="submit" class="btn btn-primary w-100" disabled="@isSubmitting">
+                            @if (isSubmitting)
+                            {
+                                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                <span class="visually-hidden">Registering...</span>
+                            }
+                            else
+                            {
+                                <span>Register</span>
+                            }
+                        </button>
+                    </EditForm>
+
+                    @if (!string.IsNullOrEmpty(message))
+                    {
+                        <div class="alert @(success ? "alert-success" : "alert-danger") mt-3">
+                            @message
+                        </div>
+                    }
+
+                    <div class="text-center mt-3">
+                        <a href="/login">Already have an account? Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private RegisterDto registerModel = new();
+    private string? message;
+    private bool success;
+    private bool isSubmitting;
+
+    private async Task HandleRegister()
+    {
+        isSubmitting = true;
+        message = null;
+        success = false;
+
+        try
+        {
+            var result = await AuthService.RegisterAsync(registerModel);
+
+            if (result.Success)
+            {
+                success = true;
+                message = "Registration successful! Redirecting to login...";
+                await Task.Delay(1500);
+                Navigation.NavigateTo("/login");
+            }
+            else
+            {
+                message = result.Message ?? "An error occurred during registration.";
+            }
+        }
+        catch (Exception ex)
+        {
+            message = $"Unexpected error: {ex.Message}";
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+}

@@ -18,6 +18,8 @@
         ProjectService.cs
         SkillService.cs
         AuthService.cs
+        CustomAuthStateProvider.cs
+        AuthMessageHandler.cs
     Layout/
         MainLayout.razor
         MainLayout.razor.css
@@ -39,3 +41,38 @@
         Skill.cs
         RegisterDto.cs
         LoginDto.cs
+
+
+
+    /SkillSnap.Api/Data/DbInitializer.cs
+    /SkillSnap.Api/Controllers/UserController.cs
+    /SkillSnap.Api/Controllers/ProjectsController.cs
+    /SkillSnap.Api/Controllers/SkillsController.cs
+    /SkillSnap.Api/Controllers/AuthController.cs
+    /SkillSnap.Api/Program.cs
+    /SkillSnap.Api/SkillSnapContext.cs
+    /SkillSnap.Api/ApplicationUser.cs
+
+    /SkillSnap.Client/Components/ProfileCard.razor
+    /SkillSnap.Client/Components/ProjectList.razor
+    /SkillSnap.Client/Components/SkillTags.razor
+    /SkillSnap.Client/Services/ProjectService.cs
+    /SkillSnap.Client/Services/SkillService.cs
+    /SkillSnap.Client/Services/AuthService.cs
+    /SkillSnap.Client/Services/CustomAuthStateProvider.cs
+    /SkillSnap.Client/Services/AuthMessageHandler.cs
+    /SkillSnap.Client/Pages/Home.razor
+    /SkillSnap.Client/Pages/NotFound.razor
+    /SkillSnap.Client/Pages/Projects.razor
+    /SkillSnap.Client/Pages/Skills.razor
+    /SkillSnap.Client/Pages/Login.razor
+    /SkillSnap.Client/Pages/Register.razor
+    /SkillSnap.Client/Program.cs
+
+
+    /SkillSnap.Shared/Models/IPortfolioUser.cs
+    /SkillSnap.Shared/Models/PortfoilioUser.cs
+    /SkillSnap.Shared/Models/Project.cs
+    /SkillSnap.Shared/Models/Skill.cs
+    /SkillSnap.Shared/Models/RegisterDto.cs
+    /SkillSnap.Shared/Models/LoginDto.cs

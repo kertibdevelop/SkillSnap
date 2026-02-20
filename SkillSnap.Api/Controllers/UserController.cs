@@ -1,4 +1,5 @@
 
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -60,5 +61,17 @@ public class UserController : ControllerBase
         };
 
         return Ok(portfolio);
+    }
+
+    [HttpGet("test-auth")]
+    public async Task<IActionResult> TestAuth()
+    {
+        
+        return Ok(new
+        {
+            IsAuthenticated = User.Identity?.IsAuthenticated,
+            UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+            Roles = User.FindAll(ClaimTypes.Role).Select(c => c.Value)
+        });
     }
 }
